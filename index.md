@@ -396,4 +396,82 @@ https://<your-username>.github.io/<repo-name>/
 
 ---
 
+# 3
+
+Yes — if **`api` is your main working branch**, then you're **100% allowed to use it** for GitHub Pages. GitHub just defaults to `main`, but you can **explicitly configure Pages to use `api`**.
+
+Here’s exactly what to do:
+
+---
+
+## ✅ Use `api` for GitHub Pages
+
+### 🛰️ 1. Enable GitHub Pages from `api` branch
+
+Go to your repo: [https://github.com/abikesa/signal-noise](https://github.com/abikesa/signal-noise)
+
+Then:
+
+1. Click **Settings** → **Pages** (or **"Code and automation" > "Pages"** in the sidebar)
+2. Under **Source**, choose:
+
+   * **Branch**: `api`
+   * **Folder**: `/docs`
+3. Click **Save**
+
+---
+
+### 📂 2. Confirm `index.html` is in `signal_noise_toolkit/docs/`
+
+GitHub will look for:
+
+```
+signal-noise/docs/index.html
+```
+
+That means your current `index.html` at `signal_noise_toolkit/docs/index.html` must be **moved or symlinked**.
+
+Run this:
+
+```bash
+cp signal_noise_toolkit/docs/index.html docs/index.html
+```
+
+Then:
+
+```bash
+git add docs/index.html
+git commit -m "Expose index.html for GitHub Pages"
+git push
+```
+
+---
+
+### 🌍 3. View Your Dashboard
+
+Visit:
+
+```
+https://abikesa.github.io/signal-noise/
+```
+
+Boom 💥 — your live dashboard!
+
+---
+
+### 🤔 Why move `index.html`?
+
+GitHub Pages **requires the file to be in the root of the `/docs` folder**, not nested in a subfolder like `signal_noise_toolkit/docs`.
+
+---
+
+Once this works, we can:
+
+* Symlink or automate future exports to land in `docs/`
+* Style the dashboard
+* Add `.md` and `.html` task links
+
+Ready to publish and check it live?
+
+
 Let me know when `index.html` is working locally — we can fine-tune layout, colors, or even pull in `.md` views via a second tab!
