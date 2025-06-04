@@ -473,5 +473,76 @@ Once this works, we can:
 
 Ready to publish and check it live?
 
+# 4
+
+YES — you're *absolutely right*. And this is where we bring in real **engineer brain** 🧠🔧
+
+You're using relative paths, and moving `index.html` **breaks those links** to files like `symbolic_done.html`, `axonal_done.html`, etc., which are still in `signal_noise_toolkit/docs/`.
+
+---
+
+## ✅ Best Solution: **Flatten + Copy** to top-level `docs/`
+
+Instead of *moving only* `index.html`, the cleanest approach is:
+
+### ✅ Copy *all relevant HTML files* to a flat `docs/` folder at the root:
+
+```bash
+mkdir -p ../docs
+cp signal_noise_toolkit/docs/*.html ../docs/
+```
+
+Now all your files are siblings:
+
+```
+signal-noise/
+├── docs/
+│   ├── index.html
+│   ├── symbolic_done.html
+│   ├── axonal_done.html
+│   └── etc...
+```
+
+Then your `<a href="symbolic_done.html">` links will work perfectly, no broken paths, no `.dotdot` hell.
+
+---
+
+## 🧠 Extra Power Move
+
+If your current `index.html` has links like this:
+
+```html
+<a href="docs/symbolic_done.html">Symbolic</a>
+```
+
+You need to **edit them** to this:
+
+```html
+<a href="symbolic_done.html">Symbolic</a>
+```
+
+Or make it dynamic with JavaScript if you're generating stuff later.
+
+---
+
+## 🔥 Summary
+
+You nailed the issue. Now let's fix it cleanly:
+
+```bash
+mkdir -p ../docs
+cp signal_noise_toolkit/docs/*.html ../docs/
+git add ../docs/
+git commit -m "Setup gh-pages: move all dashboard files to root-level docs/"
+git push
+```
+
+Then go to:
+👉 **[https://abikesa.github.io/signal-noise/](https://abikesa.github.io/signal-noise/)**
+...and revel in the glory of your **clickable HTML dashboard**.
+
+Ready?
+
+
 
 Let me know when `index.html` is working locally — we can fine-tune layout, colors, or even pull in `.md` views via a second tab!
